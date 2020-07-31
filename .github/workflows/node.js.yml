@@ -29,8 +29,8 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: v2-${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            v2-${{ runner.os }}-yarn-
+          # restore-keys: |
+          #   v2-${{ runner.os }}-yarn-
 
       - run: yarn
       - run: yarn --cwd examples/app-host install
@@ -60,8 +60,8 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: v2-${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            v2-${{ runner.os }}-yarn-
+          # restore-keys: |
+          #   v2-${{ runner.os }}-yarn-
 
       - run: yarn
       - run: yarn test

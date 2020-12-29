@@ -32,6 +32,7 @@ jobs:
           # restore-keys: |
           #   v2-${{ runner.os }}-yarn-
 
+      - run: tar --version
       - run: yarn
       - run: yarn --cwd examples/app-host install
       - run: npx prettier --check .

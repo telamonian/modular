@@ -312,10 +312,14 @@ describe('modular-scripts', () => {
     rimraf.sync(path.join(modularRoot, 'dist'));
 
     // build a view
-    await modular('build sample-view', { stdio: 'inherit' });
+    await modular('build sample-view', {
+      stdio: 'inherit',
+      env: { NODE_ENV: 'production' },
+    });
     // build a package too, but preserve modules
     await modular('build sample-package --preserve-modules', {
       stdio: 'inherit',
+      env: { NODE_ENV: 'production' },
     });
 
     expect(
@@ -324,7 +328,9 @@ describe('modular-scripts', () => {
       ),
     ).toMatchInlineSnapshot(`
       Object {
-        "dependencies": Object {},
+        "dependencies": Object {
+          "@babel/runtime": "^7.12.5",
+        },
         "files": Array [
           "/dist-cjs",
           "/dist-es",
@@ -347,6 +353,7 @@ describe('modular-scripts', () => {
     ).toMatchInlineSnapshot(`
       Object {
         "dependencies": Object {
+          "@babel/runtime": "^7.12.5",
           "react": "^17.0.1",
         },
         "files": Array [
@@ -384,11 +391,11 @@ describe('modular-scripts', () => {
       └─ sample-view
          ├─ README.md #11adaka
          ├─ dist-cjs
-         │  ├─ sample-view.cjs.js #fmbogr
-         │  └─ sample-view.cjs.js.map #4xu206
+         │  ├─ sample-view.cjs.js #6m8e6l
+         │  └─ sample-view.cjs.js.map #8n51c7
          ├─ dist-es
-         │  ├─ sample-view.es.js #10hnw4k
-         │  └─ sample-view.es.js.map #jqhhy5
+         │  ├─ sample-view.es.js #15wupk5
+         │  └─ sample-view.es.js.map #2wqd6e
          ├─ dist-types
          │  └─ src
          │     └─ index.d.ts #1vloh7q

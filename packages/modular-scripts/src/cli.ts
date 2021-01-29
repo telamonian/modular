@@ -111,7 +111,7 @@ async function run() {
       case 'start':
         return start(argv._[1]);
       case 'build':
-        return buildSequential(
+        return buildAll(
           argv._[1].split(','),
           argv['preserve-modules'] as boolean | undefined,
         );
@@ -305,13 +305,18 @@ function start(appPath: string) {
   });
 }
 
-// run builds sequentially
-async function buildSequential(
-  directoryNames: string[],
-  preserveModules?: boolean,
-) {
+// run builds
+async function buildAll(directoryNames: string[], preserveModules?: boolean) {
+  if (process.env.NODE_ENV !== 'production') {
+    console.error(
+      'Builds should be done with production settings. Try calling NODE_ENV=production modular build <name>',
+    );
+    process.exit(1);
+  }
   console.log('building packages:', directoryNames.join(', '));
 
+  // run them sequentially. If you need parallelism, run multiple
+  // `modular build <name>` processes yourself.
   for (let i = 0; i < directoryNames.length; i++) {
     try {
       await build(directoryNames[i], preserveModules);

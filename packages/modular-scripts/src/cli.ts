@@ -54,7 +54,7 @@ function execSync(
   });
 }
 
-type PackageType = 'app' | 'view' | 'root'; // | 'package', the default
+type PackageType = 'app' | 'view' | 'root' | 'package';
 
 type ModularPackageJson = PackageJson & {
   modular?: {
